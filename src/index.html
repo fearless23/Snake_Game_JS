@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Canvas  Snake Game</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <style></style>
+  <body>
+    <section class="game">
+      <header id="info">
+        <div>Points: <span id="points"></span></div>
+        <div class="btn-grp">
+          <button onclick="startGame()" class="btn btn-start">New Game</button>
+          <button onclick="stopGame()" class="btn btn-end">Reset</button>
+        </div>
+      </header>
+      <canvas id="canvas"></canvas>
+    </section>
+    <img src="./imgs/tail.jpg" alt="" id="tail"/>
+    <script src="./js/initData.js"></script>
+    <script src="./js/helpers.js"></script>
+    <script src="./js/snake.js"></script>
+  </body>
+</html>

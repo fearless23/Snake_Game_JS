@@ -1,0 +1,60 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+section.game {
+  width: 604px;
+  margin: 0 auto;
+  margin-top: 2em;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.btn-grp {
+  display: flex;
+}
+
+.btn-grp .btn {
+  margin-left: 1em;
+}
+
+.btn {
+  height: 32px;
+  border: none;
+  background: #2a98ef;
+  color: white;
+  border-radius: 3px;
+  padding: 0 1em;
+  font-size: 15px;
+  line-height: 32px;
+}
+
+.btn.btn-start {
+  background-color: #2a98ef;
+}
+
+.btn.btn-end {
+  background-color: crimson;
+}
+
+canvas {
+  border: 2px solid #4d5256;
+}
+
+/* Hide All imgs */
+img {
+  position: absolute;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+  opacity: 0;
+  z-index: -100;
+}

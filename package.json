@@ -1,0 +1,17 @@
+{
+  "name": "snake-game-js",
+  "version": "1.0.0",
+  "description": "Snake Game JS",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "echo \"Run stc/index.html\" && exit 1"
+  },
+  "keywords": [
+    "Snake",
+    "JS",
+    "Canvas",
+    "HTML"
+  ],
+  "author": "Jaspreet Singh",
+  "license": "ISC"
+}
