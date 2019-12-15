@@ -3,10 +3,17 @@ const randInt = function(min = 1, max = boardSize) {
 };
 
 const getFillStyle = function(idx, arrLen) {
-  let x = "#2a9ef";
-  if (idx === 0) x = "#4488bf";
-  if (idx === arrLen - 1) x = "#0761a9";
-  return x;
+  // IDX: 0 --> blue=min,
+  //  last index: blue=max
+  // rest are in b/w
+  const d = arrLen - 1;
+  const dd = !!d ? d : 1;
+  const max = 255;
+  const min = 120;
+
+  const fac = ((max - min) * idx) / dd;
+  const ff = fac + min;
+  return `rgba(42,152,${ff},1)`;
 };
 
 const sqPresent = function([nx, ny]) {
@@ -99,4 +106,23 @@ const onMove = function(moveType) {
     return { status: false, msg: "Game Won" };
   }
   return { status: true };
+};
+
+//
+const startBtn = document.getElementById("btn-start");
+const endBtn = document.getElementById("btn-end");
+const changeGameState = x => {
+  if (x) {
+    gameState = "running";
+    startBtn.classList.add("disabled");
+    startBtn.setAttribute("disabled", true);
+    endBtn.classList.remove("disabled");
+    endBtn.removeAttribute("disabled");
+  } else {
+    gameState = "stopped";
+    endBtn.classList.add("disabled");
+    endBtn.setAttribute("disabled", true);
+    startBtn.classList.remove("disabled");
+    startBtn.removeAttribute("disabled");
+  }
 };

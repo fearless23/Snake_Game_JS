@@ -15,6 +15,7 @@ const info = document.getElementById("info");
 let x;
 const startGame = () => {
   if (gameState === "running") return;
+  changeGameState(true);
   setInitState();
   drawFood();
   drawSnake(snake);
@@ -22,18 +23,18 @@ const startGame = () => {
   x = setInterval(() => {
     const { status, msg } = onMove(dir);
     if (!status) {
-      gameState = "stopped"
+      changeGameState(false);
       p.innerText = `${points} - ${msg}`;
       clearInterval(x);
     }
-  }, 150);
+  }, 80);
 };
 
 const stopGame = () => {
   if (gameState === "stopped") return;
   clearInterval(x);
   context.clearRect(0, 0, canvasSize, canvasSize);
-  gameState = "stopped";
+  changeGameState(false);
 };
 
 document.addEventListener("keydown", function(event) {

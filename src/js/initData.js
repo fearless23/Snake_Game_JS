@@ -1,6 +1,10 @@
 // Board Size = 30x30;
 const boardSize = 30;
-const canvasSize = 600;
+const canvasSize = 450;
+
+const xx = document.getElementById("game");
+xx.style.width = `${canvasSize + 4}px`;
+
 let gameState = "stopped";
 const maxFood = 20;
 let snake;
