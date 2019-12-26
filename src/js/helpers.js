@@ -6,25 +6,16 @@ const getFillStyle = function(idx, arrLen) {
   // IDX: 0 --> blue=min,
   //  last index: blue=max
   // rest are in b/w
-  const d = arrLen - 1;
-  const dd = !!d ? d : 1;
+  const dd = arrLen > 1 ? arrLen - 1 : 1;
   const max = 255;
   const min = 120;
-
   const fac = ((max - min) * idx) / dd;
-  const ff = fac + min;
-  return `rgba(42,152,${ff},1)`;
+  return `rgba(42,152,${fac + min},1)`;
 };
 
 const sqPresent = function([nx, ny]) {
-  // tail can move to head...
-  for (let i = 1; i < snake.length; ++i) {
-    const [x, y] = snake[i];
-    if (x === nx && y === ny) {
-      return true;
-    }
-  }
-  return false;
+  const x = snake.some(([x, y]) => (x === nx && y === ny))
+  return !!x
 };
 
 const drawSnake = (points = []) => {
@@ -79,33 +70,23 @@ const newElIsEater = function([x, y]) {
 };
 
 const is90DegChangeInDir = function(moveType) {
-  const a = dir === "ArrowRight" && moveType === ("ArrowLeft" || "ArrowRight");
-  const b = dir === "ArrowLeft" && moveType === ("ArrowRight" || "ArrowLeft");
-  const c = dir === "ArrowUp" && moveType === ("ArrowDown" || "ArrowUp");
-  const d = dir === "ArrowDown" && moveType === ("ArrowUp" || "ArrowDown");
-  return !(a || b || c || d);
+  const moveIsH = moveType === "ArrowLeft" || moveType === "ArrowRight";
+  const dirIsH = dir === "ArrowLeft" || dir === "ArrowRight";
+  return (moveIsH && !dirIsH) || (!moveIsH && dirIsH);
 };
 
 const onMove = function(moveType) {
   const [dx, dy] = keyMoves[moveType];
   const [lx, ly] = snake[snake.length - 1];
-  let newEl = [lx + dx, ly + dy];
-  newEl = checkHitBoundary(newEl);
-
-  if (sqPresent(newEl)) {
-    return { status: false, msg: "Hit Self" };
-  }
-  if (!newElIsEater(newEl)) {
-    snake.shift();
-  }
+  const newEl = checkHitBoundary([lx + dx, ly + dy]);
+  if (sqPresent(newEl)) return { status: false, msg: "Hit Self" };
+  if (!newElIsEater(newEl)) snake.shift();
   context.clearRect(0, 0, canvasSize, canvasSize);
   snake.push(newEl);
   drawSnake(snake);
   drawFood();
-  if (foodsCreated >= maxFood) {
-    return { status: false, msg: "Game Won" };
-  }
-  return { status: true };
+  if (foodsCreated >= maxFood) return { status: false, msg: "Game Won" };
+  return { status: true, msg: "continue" };
 };
 
 //
